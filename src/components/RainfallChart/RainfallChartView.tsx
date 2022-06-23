@@ -19,7 +19,7 @@ const RainfallChartView = (props: IChartViewData) => {
   const dispatch = useAppDispatch();
   const [queryParams] = useSearchParams();
   let params = Object.fromEntries(queryParams);
-  const subtile = `${props.chartInfoData.siteName}<br>
+  const subtitle = `${props.chartInfoData.siteName}<br>
   Rainfall Period :  ${props.chartInfoData.startDate} to ${props.chartInfoData.endDate}`;
   console.log(params);
 
@@ -45,7 +45,7 @@ const RainfallChartView = (props: IChartViewData) => {
     },
 
     subtitle: {
-      text: subtile,
+      text: subtitle,
     },
 
     yAxis: {
