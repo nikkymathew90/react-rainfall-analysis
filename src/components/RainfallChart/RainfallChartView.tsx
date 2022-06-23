@@ -8,6 +8,7 @@ import HighchartsReact from "highcharts-react-official";
 
 import { fetchChartGraphData } from "./reducer";
 import { useAppDispatch } from "../../store/store-creator";
+import classNames from "./RainfallChartView.module.css";
 
 const ReactHighcharts = require("react-highcharts");
 
@@ -18,6 +19,8 @@ const RainfallChartView = (props: IChartViewData) => {
   const dispatch = useAppDispatch();
   const [queryParams] = useSearchParams();
   let params = Object.fromEntries(queryParams);
+  const subtile = `${props.chartInfoData.siteName}<br>
+  Rainfall Period :  ${props.chartInfoData.startDate} to ${props.chartInfoData.endDate}`;
   console.log(params);
 
   //TODO: Uncomment this part once we have actual endpoint to pull data
@@ -42,7 +45,7 @@ const RainfallChartView = (props: IChartViewData) => {
     },
 
     subtitle: {
-      text: "tes subtitle",
+      text: subtile,
     },
 
     yAxis: {
@@ -52,6 +55,8 @@ const RainfallChartView = (props: IChartViewData) => {
       min: 0,
       max: 100,
       tickInterval: 25,
+      lineColor: "#DEDEDE",
+      lineWidth: 1,
     },
 
     xAxis: {
@@ -115,13 +120,7 @@ const RainfallChartView = (props: IChartViewData) => {
   const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
 
   return (
-    <div
-      className="mt-3 mx-auto"
-      style={{
-        width: "90%",
-        height: "auto",
-      }}
-    >
+    <div className={classNames.chartContainer}>
       <HighchartsReact
         highcharts={Highcharts}
         options={config}

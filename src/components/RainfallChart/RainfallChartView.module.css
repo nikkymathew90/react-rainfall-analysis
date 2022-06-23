@@ -1,0 +1,19 @@
+.chartContainer {
+  width: 90%;
+  height: auto;
+  margin-top: 1.875rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.chartContainer > div[style] {
+  overflow: auto !important;
+}
+
+@media print {
+  .chartContainer {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}

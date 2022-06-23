@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { IChartGraphData, IChartTableData, IChartViewData } from "./models";
+import {
+  IChartGraphData,
+  IChartTableData,
+  IChartInfoData,
+  IChartViewData,
+} from "./models";
 
 const chartViewDataInitialState: IChartViewData = {
   chartGraphData: [
@@ -60,6 +65,11 @@ const chartViewDataInitialState: IChartViewData = {
       data: [75, 65, 55, 50, 18, 12, 9, 5, 1],
     },
   ],
+  chartInfoData: {
+    siteName: "Demo Rainfall CA",
+    startDate: "12-3-2021",
+    endDate: "30-4-2021",
+  },
 };
 interface chartGraphDataRequestParams {
   siteID: number;
@@ -147,5 +157,7 @@ export const selectRainfallChartGraphState = (state: any) =>
   state.rainfallChart.chartGraphData as IChartGraphData[];
 export const selectRainfallChartTableState = (state: any) =>
   state.rainfallChart.chartTableData as IChartTableData[];
+export const selectRainfallChartInfoState = (state: any) =>
+  state.rainfallChart.chartInfoData as IChartInfoData;
 
 export default rainfallChartSlice.reducer;

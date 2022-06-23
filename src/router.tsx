@@ -1,21 +1,33 @@
-import { Route, Routes, BrowserRouter as Router, Navigate } from "react-router-dom";
-import RainfallSettingsView from './components/RainfallSettings/RainfallSettingsView';
-import RainfallChartView from './components/RainfallChart/RainfallChartView';
+import {
+  Route,
+  Routes,
+  BrowserRouter as Router,
+  Navigate,
+} from "react-router-dom";
+import RainfallSettingsView from "./components/RainfallSettings/RainfallSettingsView";
+import RainfallChartView from "./components/RainfallChart/RainfallChartView";
 import { IAppState } from "./store/models";
-import { selectRainfallChartGraphState, selectRainfallChartTableState} from './components/RainfallChart/reducer'
-import { selectRainfallSettingsState } from './components/RainfallSettings/reducer'
-import { useAppSelector } from './store/store-creator'
+import {
+  selectRainfallChartGraphState,
+  selectRainfallChartInfoState,
+  selectRainfallChartTableState,
+} from "./components/RainfallChart/reducer";
+import { selectRainfallSettingsState } from "./components/RainfallSettings/reducer";
+import { useAppSelector } from "./store/store-creator";
 
-  function MainRouter() {
-    
-    const rainfallSettingsData = useAppSelector(selectRainfallSettingsState);
-    const rainfallChartGraphData = useAppSelector(selectRainfallChartGraphState);
-    const rainfallChartTableData = useAppSelector(selectRainfallChartTableState);
+function MainRouter() {
+  const rainfallSettingsData = useAppSelector(selectRainfallSettingsState);
+  const rainfallChartGraphData = useAppSelector(selectRainfallChartGraphState);
+  const rainfallChartTableData = useAppSelector(selectRainfallChartTableState);
+  const rainfallChartInfoData = useAppSelector(selectRainfallChartInfoState);
 
-      return (
-        <Router>
-          <Routes>
-            <Route path="/rainfall-settings" element={<RainfallSettingsView
+  return (
+    <Router>
+      <Routes>
+        <Route
+          path="/rainfall-settings"
+          element={
+            <RainfallSettingsView
               sites={rainfallSettingsData.sites}
               startDate={rainfallSettingsData.startDate}
               endDate={rainfallSettingsData.endDate}
@@ -24,14 +36,25 @@ import { useAppSelector } from './store/store-creator'
               selectedIDFCurveID={rainfallSettingsData.selectedIDFCurveID}
               selectedSiteChannels={rainfallSettingsData.selectedSiteChannels}
               selectedSiteID={rainfallSettingsData.selectedSiteID}
-              startTime={rainfallSettingsData.startTime} endTime={rainfallSettingsData.endTime}
-              />} 
+              startTime={rainfallSettingsData.startTime}
+              endTime={rainfallSettingsData.endTime}
             />
-            <Route path="/" element={<Navigate to='/rainfall-settings' />} />
-            <Route path="/chart-view" element={<RainfallChartView chartGraphData={rainfallChartGraphData} chartTableData={rainfallChartTableData}/>} />
-          </Routes>
-        </Router>
-    );
-  }
+          }
+        />
+        <Route path="/" element={<Navigate to="/rainfall-settings" />} />
+        <Route
+          path="/chart-view"
+          element={
+            <RainfallChartView
+              chartGraphData={rainfallChartGraphData}
+              chartTableData={rainfallChartTableData}
+              chartInfoData={rainfallChartInfoData}
+            />
+          }
+        />
+      </Routes>
+    </Router>
+  );
+}
 
-export default MainRouter
+export default MainRouter;
