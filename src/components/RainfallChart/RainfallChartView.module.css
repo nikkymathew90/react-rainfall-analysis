@@ -7,7 +7,7 @@
 }
 
 .chartContainer > div[style] {
-  overflow: auto !important;
+  overflow: initial !important;
 }
 
 @media print {
