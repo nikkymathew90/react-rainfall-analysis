@@ -69,6 +69,16 @@ const chartViewDataInitialState: IChartViewData = {
     siteName: "Demo Rainfall CA",
     startDate: "12-3-2021",
     endDate: "30-4-2021",
+    rainfallSummary: [
+      {
+        name: "Total Rainfall During Period",
+        data: "310 mm",
+      },
+      {
+        name: "Hours in Period",
+        data: "710 hrs",
+      },
+    ],
   },
 };
 interface chartGraphDataRequestParams {

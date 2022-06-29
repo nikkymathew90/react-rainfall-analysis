@@ -10,6 +10,11 @@
   overflow: initial !important;
 }
 
+.rfTable {
+  width: 300px;
+  margin: 50px auto;
+}
+
 @media print {
   .chartContainer {
     width: 100%;

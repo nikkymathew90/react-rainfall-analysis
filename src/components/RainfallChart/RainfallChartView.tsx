@@ -1,31 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import { produceWithPatches } from "immer";
-import { Table } from "react-bootstrap";
-import { IChartTableData, IChartViewData } from "./models";
+import { IChartViewData } from "./models";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 
 import { fetchChartGraphData } from "./reducer";
 import { useAppDispatch } from "../../store/store-creator";
 import classNames from "./RainfallChartView.module.css";
-
-const ReactHighcharts = require("react-highcharts");
-
-const parse = require("url-parse");
+import { ChartViewTable } from "./RainfallChartViewTable";
+import { RfDataViewTable } from "./rainfallDataTable";
 
 const RainfallChartView = (props: IChartViewData) => {
-  //const [params, setParams] = useState<ChartViewParams>();
   const dispatch = useAppDispatch();
   const [queryParams] = useSearchParams();
   let params = Object.fromEntries(queryParams);
   const subtitle = `${props.chartInfoData.siteName}<br>
   Rainfall Period :  ${props.chartInfoData.startDate} to ${props.chartInfoData.endDate}`;
-  console.log(params);
-
-  //TODO: Uncomment this part once we have actual endpoint to pull data
-  //const url = parse(window.location.href, true);
-  //const queryParams = url.query;
 
   useEffect(() => {
     dispatch(
@@ -83,40 +73,6 @@ const RainfallChartView = (props: IChartViewData) => {
     },
   };
 
-  const DrawTable = (cdata: IChartTableData[]) => {
-    return (
-      <Table>
-        <thead>
-          <tr>
-            <th></th>
-            <th>5min</th>
-            <th>10min</th>
-            <th>15min</th>
-            <th>30min</th>
-            <th>1hr</th>
-            <th>2hr</th>
-            <th>6hr</th>
-            <th>12hr</th>
-            <th>24hr</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cdata.map((datas, idx) => {
-            const { name, data } = datas;
-            return (
-              <tr key={idx}>
-                <th>{name}</th>
-                {data?.map((item, idx) => (
-                  <td key={idx}>{item}</td>
-                ))}
-              </tr>
-            );
-          })}
-        </tbody>
-      </Table>
-    );
-  };
-
   const chartComponentRef = useRef<HighchartsReact.RefObject>(null);
 
   return (
@@ -126,7 +82,8 @@ const RainfallChartView = (props: IChartViewData) => {
         options={config}
         ref={chartComponentRef}
       />
-      {DrawTable(props.chartTableData)}
+      {RfDataViewTable(props.chartInfoData.rainfallSummary)}
+      {ChartViewTable(props.chartTableData)}
     </div>
   );
 };
